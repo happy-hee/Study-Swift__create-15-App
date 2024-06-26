@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    // 스토리보드에서 연결한 속성
     @IBOutlet weak var firstImageView: UIImageView!
     @IBOutlet weak var secondImageView: UIImageView!
     
@@ -21,6 +22,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // firstImageView나 secondImageView는 UIImageView 타입
+        // -> UIImageView의 미리 정의되어있는 이미지 속성(.image)에 이미지를 넣음(=)
         firstImageView.image = diceArray[0]
         secondImageView.image = diceArray[1]
     }

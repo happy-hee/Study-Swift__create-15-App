@@ -7,6 +7,7 @@
 
 import UIKit
 
+// UIViewController 를 상속해서 개발자가 만든 ViewController 클래스
 class ViewController: UIViewController {
 
     // 변수/속성
@@ -18,7 +19,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var comChoiceLabel: UILabel!
     @IBOutlet weak var myChoiceLabel: UILabel!
     
-    var comChoice = Rps(rawValue: Int.random(in: 0...2))!
+    // Rps -> Rps.swift 파일에 만들어놓은 열거형(enum)
+    var comChoice:Rps = Rps(rawValue: Int.random(in: 0...2))!
     var myChoice = Rps.rock
     
     // 함수/메서드
@@ -35,14 +37,17 @@ class ViewController: UIViewController {
     }
 
 
-    // 어떤 버튼을 눌렀는지가 sender 부분에 파라미터로 들어온다
+    // 어떤 버튼을 눌렀는지가 sender 부분에 파라미터로 들어온다(Type: UIButton)
     @IBAction func rpsButtonTapped(_ sender: UIButton) {
-        // 가위/바위/보를 선택해서 그 정보를 저장
-        // sender.currentTitle
-        // currentTitle: 현재 타이틀을 가져옴
-        // "가위", "바위", "보" -> 옵셔널로 가져오기 때문에 강제로 벗기거나 guard let 방식으로 벗김
-        let title = sender.currentTitle!
+        // 1) 가위/바위/보(enum) 를 선택해서 그 정보를 저장 ⭐️
         
+        // 2) 버튼의 문자를 가져옴
+        // currentTitle: 현재 타이틀을 '옵셔널'로 가져옴 (빈 문자열일 수도 있기때문에 옵셔널)
+        // "가위", "바위", "보" -> 옵셔널로 가져오기 때문에 강제로 벗기거나 guard let 방식으로 벗김
+        guard let title = sender.currentTitle else { return }
+        
+        // 3) 가져온 문자열을 분기화해서 myChoice 변수에 열거형으로 저장
+        // title이 문자열이기 때문에 default가 필요
         switch title {
         case "Rock":
             myChoice = Rps.scissors
@@ -60,6 +65,8 @@ class ViewController: UIViewController {
         
         // 1) 컴퓨터가 랜덤 선택한 값을 이미지뷰에 표시
         // 2) 컴퓨터가 랜덤 선택한 값을 레이블에 문자열로 표시
+        
+        // comChoice가 enum 타입이기 때문에 default 불필요
         switch comChoice {
         case Rps.rock:
             comImgView.image = #imageLiteral(resourceName: "rock")
