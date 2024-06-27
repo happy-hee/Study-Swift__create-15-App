@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  FirstNewApp
 //
-//  Created by 김다희 on 6/23/24.
+//  Created by Nova on 2024/06/24.
 //
 
 import UIKit
