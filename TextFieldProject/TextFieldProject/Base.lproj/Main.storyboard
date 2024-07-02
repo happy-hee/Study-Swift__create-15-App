@@ -35,6 +35,9 @@
                                         <state key="normal" title="Done">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="doneButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="APt-mc-DNi"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -50,6 +53,9 @@
                             <constraint firstItem="IYH-Uq-jKW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="180" id="zjv-WC-vQN"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="textField" destination="xs4-QN-hIE" id="VBg-vH-aVr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
