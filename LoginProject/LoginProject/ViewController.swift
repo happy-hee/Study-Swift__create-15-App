@@ -8,9 +8,17 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
-    // 메모리에 올림
-    let emailTextFieldView = UIView()
+
+    let emailTextFieldView: UIView = { // {}() -> 클로저 실행문
+        let view = UIView()
+        // 배경색
+        view.backgroundColor = UIColor.darkGray
+        // 모서리 둥글게
+        view.layer.cornerRadius = 5;
+        view.layer.masksToBounds = true;
+        
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,12 +27,10 @@ class ViewController: UIViewController {
     }
 
     func makeUI() {
-        // 화면에 표시
-        view.addSubview(emailTextFieldView)
-        
-        emailTextFieldView.backgroundColor = UIColor.darkGray
+
         
         // 오토 레이아웃 잡기
+        view.addSubview(emailTextFieldView)
         emailTextFieldView.translatesAutoresizingMaskIntoConstraints = false
         // 왼쪽으로부터 얼마나 떨어지는지
         emailTextFieldView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
