@@ -96,7 +96,7 @@ class ViewController: UIViewController {
         button.setTitle("표시", for: .normal)
         button.setTitleColor(#colorLiteral(red: 0.83, green: 0.83, blue: 0.83, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .light)
-        // button.addTarget(self, action: #selector(passwordSecureModeSetting), for: .touchUpInside)
+        button.addTarget(self, action: #selector(passwordSecureModeSetting), for: .touchUpInside)
         return button
     }()
     
@@ -131,7 +131,7 @@ class ViewController: UIViewController {
         button.backgroundColor = .clear
         button.setTitle("비밀번호 재설정", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-//        button.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -197,9 +197,43 @@ class ViewController: UIViewController {
         ])
         
 
-        
-        
-
     }
+    
+    
+    // MARK: - 비밀번호 리셋 버튼 함수
+    @objc func resetButtonTapped() {
+//        print("리셋버튼이 눌렸습니다.")
+        
+        // 얼럿창 만들기
+        let alert = UIAlertController(title: "비밀번호 바꾸기", message: "비밀번호를 바꾸시겠습니까?", preferredStyle: .alert)
+        
+        let success = UIAlertAction(title: "확인", style: .default) { action in
+            print("확인버튼이 눌렸습니다.")
+        }
+        
+        let cancel = UIAlertAction(title: "취소", style: .cancel) { cancel in
+            print("취소버튼이 눌렸습니다.")
+        }
+        
+        alert.addAction(success)
+        alert.addAction(cancel)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    
+    // MARK: - 비밀번호 표시 버튼 함수
+    @objc func passwordSecureModeSetting() {
+//        print("표시 버튼이 눌렸습니다.")
+        
+        // .toggle() - 누를때마다 true/false 가 번갈아가면서 실행됨
+        passwordTextField.isSecureTextEntry.toggle()
+    }
+    
+    
+    
+    
+    
+    
 }
 
