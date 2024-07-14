@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController  {
+final class ViewController: UIViewController  {
  
     // MARK: - 이메일을 입력하는 텍스트뷰
     private lazy var emailTextFieldView: UIView = { // {}() -> 클로저 실행문
@@ -26,7 +26,7 @@ class ViewController: UIViewController  {
     }()
     
     // "이메일 또는 전화번호" 안내문구
-    private var emailInfoLabel: UILabel = {
+    private let emailInfoLabel: UILabel = {
         let label = UILabel()
         label.text = "이메일 또는 전화번호"
         label.font = UIFont.systemFont(ofSize: 18)
@@ -45,7 +45,7 @@ class ViewController: UIViewController  {
         tf.autocorrectionType = .no     // 틀린 글자 자동으로 고쳐줌
         tf.spellCheckingType = .no      // 스펠링 체크
         tf.keyboardType = .emailAddress // 키보드 타입
-//        tf.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
+        tf.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         
         return tf
     }()
@@ -85,7 +85,7 @@ class ViewController: UIViewController  {
         tf.spellCheckingType = .no
         tf.isSecureTextEntry = true     // 비밀번호를 가리는 설정(ㅇㅇㅇㅇ으로)
         tf.clearsOnBeginEditing = false
-//        tf.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
+        tf.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         
         return tf
     }()
@@ -112,11 +112,12 @@ class ViewController: UIViewController  {
         button.setTitle("로그인", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.isEnabled = false    // 버튼 동작 여부(활성화/비활성화)
+        button.addTarget(ViewController.self, action: #selector(loginButtonTapped), for: .touchUpInside)
         return button
         
     }()
     
-    lazy var stackView: UIStackView = {
+    private lazy var stackView: UIStackView = {
         let st = UIStackView(arrangedSubviews: [emailTextFieldView, passwordTextFieldView, loginButton])
         st.spacing = 18
         st.axis = .vertical
@@ -126,12 +127,12 @@ class ViewController: UIViewController  {
     }()
     
     // 비밀번호 재설정 버튼
-    private let passwordResetButton: UIButton = {
+    private lazy var passwordResetButton: UIButton = {
        let button = UIButton()
         button.backgroundColor = .clear
         button.setTitle("비밀번호 재설정", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        button.addTarget(ViewController.self, action: #selector(resetButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -226,7 +227,7 @@ class ViewController: UIViewController  {
     
     // MARK: - 비밀번호 리셋 버튼 함수
     @objc func resetButtonTapped() {
-//        print("리셋버튼이 눌렸습니다.")
+    //        print("리셋버튼이 눌렸습니다.")
         
         // 얼럿창 만들기
         let alert = UIAlertController(title: "비밀번호 바꾸기", message: "비밀번호를 바꾸시겠습니까?", preferredStyle: .alert)
@@ -244,6 +245,11 @@ class ViewController: UIViewController  {
         
         present(alert, animated: true, completion: nil)
     }
+
+    // 입력폼 외의 화면을 누르면 키보드가 내려감
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
     
     
     // MARK: - 비밀번호 표시 버튼 함수
@@ -254,6 +260,13 @@ class ViewController: UIViewController  {
         passwordTextField.isSecureTextEntry.toggle()
     }
     
+
+    // MARK: - 로그인 버튼 함수
+    @objc func loginButtonTapped() {
+        print("로그인 버튼이 눌렸습니다.")
+    }
+
+   
 }
 
 // UITextFieldDelegate 프로토콜 채택(확장)
@@ -311,5 +324,33 @@ extension ViewController: UITextFieldDelegate {
         UIView.animate(withDuration: 0.3) {
             self.stackView.layoutIfNeeded()
         }
+    }
+
+    // 텍스트가 입력되어 있으면 로그인 버튼을 빨간색으로
+    @objc func textFieldEditingChanged(_ textField: UITextField) {
+        if textField.text?.count == 1{
+            if textField.text?.first == " " {
+                textField.text = ""
+                return
+            }
+        }
+
+        guard
+            let email = emailTextField.text, !email.isEmpty,
+            let password = passwordTextField.text, !password.isEmpty
+        else {
+            loginButton.backgroundColor = .clear
+            loginButton.isEnabled = false
+            return
+        }
+
+        loginButton.backgroundColor = .red
+        loginButton.isEnabled = true
+    }
+    
+    // 엔터 누르면 일단 키보드 내림
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
