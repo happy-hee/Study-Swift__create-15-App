@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="cwT-qM-Ehw">
-                                <rect key="frame" x="30" y="174" width="354" height="145"/>
+                                <rect key="frame" x="30" y="178" width="354" height="145"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2LO-i9-EcB">
                                         <rect key="frame" x="0.0" y="0.0" width="354" height="35"/>
@@ -82,6 +82,10 @@
                                 <state key="normal" title="Button">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="calculateButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GJp-K5-NV6"/>
+                                    <segue destination="iAg-0X-ig1" kind="presentation" modalPresentationStyle="fullScreen" id="wvT-IQ-YyL"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -95,21 +99,28 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6Px-yi-J3q" secondAttribute="trailing" constant="20" id="tUL-tY-Uxn"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="calculateButton" destination="6Px-yi-J3q" id="Bgy-Fb-dgl"/>
+                        <outlet property="heightTextField" destination="Mb0-Xj-6Gz" id="b9E-nm-26c"/>
+                        <outlet property="mainLabel" destination="2LO-i9-EcB" id="4rE-PC-KPD"/>
+                        <outlet property="weightTextField" destination="mZs-lK-Ds6" id="Fhc-q2-fON"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="131.8840579710145" y="61.607142857142854"/>
         </scene>
-        <!--View Controller-->
+        <!--Second View Controller-->
         <scene sceneID="gXI-Z8-Zcl">
             <objects>
-                <viewController id="iAg-0X-ig1" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Vd-Db-8Kt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController id="iAg-0X-ig1" customClass="SecondViewController" customModule="BMI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WNb-27-JgA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="5F9-sn-9al">
-                                <rect key="frame" x="107" y="174" width="200" height="140"/>
+                                <rect key="frame" x="107" y="130" width="200" height="140"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BMI 결과값" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1hp-Bh-5JE">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="24"/>
@@ -138,7 +149,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j27-ej-LiU">
-                                <rect key="frame" x="20" y="787" width="374" height="45"/>
+                                <rect key="frame" x="20" y="821" width="374" height="45"/>
                                 <color key="backgroundColor" name="AccentColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Z6l-or-8JO"/>
@@ -147,22 +158,29 @@
                                 <state key="normal" title="Button">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="backButtonTapped:" destination="iAg-0X-ig1" eventType="touchUpInside" id="MNs-fn-bSb"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zgs-T3-O64"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <constraints>
-                            <constraint firstItem="5F9-sn-9al" firstAttribute="centerX" secondItem="WNb-27-JgA" secondAttribute="centerX" id="P0r-du-XM3"/>
+                            <constraint firstItem="5F9-sn-9al" firstAttribute="centerX" secondItem="WNb-27-JgA" secondAttribute="centerX" id="LhT-Aw-zge"/>
                             <constraint firstItem="zgs-T3-O64" firstAttribute="trailing" secondItem="j27-ej-LiU" secondAttribute="trailing" constant="20" id="WXT-04-3ly"/>
                             <constraint firstItem="zgs-T3-O64" firstAttribute="bottom" secondItem="j27-ej-LiU" secondAttribute="bottom" constant="30" id="eOJ-Vy-vD0"/>
                             <constraint firstItem="5F9-sn-9al" firstAttribute="top" secondItem="zgs-T3-O64" secondAttribute="top" constant="130" id="nPO-gz-Rrf"/>
                             <constraint firstItem="j27-ej-LiU" firstAttribute="leading" secondItem="zgs-T3-O64" secondAttribute="leading" constant="20" id="qQ2-pH-g45"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="adviceLabel" destination="5LT-9K-Iir" id="6xr-no-vU3"/>
+                        <outlet property="backButton" destination="j27-ej-LiU" id="UvN-GA-DBe"/>
+                        <outlet property="bmiNumberLabel" destination="guR-Ib-2jO" id="Veq-Ho-5CP"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9Vd-Db-8Kt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="755" y="62"/>
+            <point key="canvasLocation" x="1057" y="62"/>
         </scene>
     </scenes>
     <resources>
