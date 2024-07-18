@@ -13,6 +13,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var weightTextField: UITextField!
     @IBOutlet weak var calculateButton: UIButton!
     
+    // 결과값 보관을 위한 변수
+    var bmi: Double?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,6 +38,10 @@ class ViewController: UIViewController {
     
 
     @IBAction func calculateButtonTapped(_ sender: UIButton) {
+        // BMI 결과값 뽑아내기
+        guard let height = heightTextField.text,
+              let weight = weightTextField.text else { return }
+        bmi = calculateBMI(height: height, weight: weight)
     }
     
     // 조건에 따라 다음화면 이동할지 말지(무조건 화면 이동이 일어난다면 이 코드는 작성하지 않아도 괜찮음)
@@ -56,12 +63,61 @@ class ViewController: UIViewController {
         if segue.identifier == "toSecondVC" {   // 이동할 페이지와의 segue 부분의 identifier가 toSecondVC
             // SecondViewController 에 접근 가능하도록
             let secondVC = segue.destination as! SecondViewController
-            
+            // 데이터(bmi 값) 전달
+            secondVC.bmiNumber = self.bmi
+            secondVC.adviceString = getBMIAdviceString()
+            secondVC.bmiColor = getBackgroundColor()
         }
         
         // 다음화면으로 넘어가기 전에 텍스트필드 비우기
         heightTextField.text = ""
         weightTextField.text = ""
+    }
+    
+    // BMI 계산 메서드
+    func calculateBMI(height: String, weight: String) -> Double {
+        guard let h = Double(height), let w = Double(weight) else { return 0.0 }
+        var bmi = w / (h * h) * 10000
+        bmi = round(bmi * 10) / 10  // 반올림
+        return bmi
+    }
+    
+    // BMI 값에 따라 색 얻는 메서드
+    func getBackgroundColor() -> UIColor {
+        guard let bmi = bmi else { return UIColor.black }
+        switch bmi {
+        case ..<18.6:
+            return UIColor(displayP3Red: 22/255, green: 231/255, blue: 207/255, alpha: 1)
+        case 18.6..<23.0:
+            return UIColor(displayP3Red: 212/255, green: 251/255, blue: 121/255, alpha: 1)
+        case 23.0..<25.0:
+            return UIColor(displayP3Red: 218/255, green: 127/255, blue: 163/255, alpha: 1)
+        case 25.0..<30.0:
+            return UIColor(displayP3Red: 255/255, green: 150/255, blue: 141/255, alpha: 1)
+        case 30.0...:
+            return UIColor(displayP3Red: 255/255, green: 100/255, blue: 78/255, alpha: 1)
+        default:
+            return UIColor.black
+        }
+    }
+    
+    // BMI 값에 따라 문자열 얻는 메서드
+    func getBMIAdviceString() -> String {
+        guard let bmi = bmi else { return "" }
+        switch bmi {
+        case ..<18.6:
+            return "저체중"
+        case 18.6..<23.0:
+            return "표준"
+        case 23.0..<25.0:
+            return "과체중"
+        case 25.0..<30.0:
+            return "중도비만"
+        case 30.0...:
+            return "고도비안"
+        default:
+            return ""
+        }
     }
 }
 
