@@ -35,15 +35,9 @@ class ViewController: UIViewController {
         weightTextField.placeholder = "kg 단위로 입력해 주세요"
     }
     
-
+    // BMI 계산하기 버튼 - 누르면 다음화면
     @IBAction func calculateButtonTapped(_ sender: UIButton) {
-        // BMI 결과값 뽑아내기
-        guard let height = heightTextField.text,
-              let weight = weightTextField.text else { return }
-//        bmi = calculateBMI(height: height, weight: weight)
-        
-        // BMI 계산하기
-        bmiManager.calculateBMI(height: height, weight: weight)
+        print(#function)
     }
     
     // 조건에 따라 다음화면 이동할지 말지(무조건 화면 이동이 일어난다면 이 코드는 작성하지 않아도 괜찮음)
@@ -65,10 +59,7 @@ class ViewController: UIViewController {
         if segue.identifier == "toSecondVC" {   // 이동할 페이지와의 segue 부분의 identifier가 toSecondVC
             // SecondViewController 에 접근 가능하도록
             let secondVC = segue.destination as! SecondViewController
-            // 데이터(bmi 값) 전달
-            secondVC.bmiNumber = bmiManager.getBMIResult()
-            secondVC.adviceString = bmiManager.getBMIAdviceString()
-            secondVC.bmiColor = bmiManager.getBackgroundColor()
+            secondVC.bmi = bmiManager.getBMI(height: heightTextField.text!, weight: weightTextField.text!)
         }
         
         // 다음화면으로 넘어가기 전에 텍스트필드 비우기
