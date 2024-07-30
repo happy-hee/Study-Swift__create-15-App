@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self     // 대리자 설정
         // tableView.rowHeight = 120       // 셀 높이
+        tableView.delegate = self
 
         movieDataManager.makeMovieData()
         movieArray = movieDataManager.getMovieData()     // 배열(데이터)을 전달받음
@@ -50,5 +51,25 @@ extension ViewController: UITableViewDataSource {
         cell.selectionStyle = .none     // 셀 선택시 스타일(.none: 없음) / 또는 스토리보드에서 테이블 뷰 선택 후 selection 부분을 No Selection으로 선택
         
         return cell
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // withIdentifier: 대상
+        performSegue(withIdentifier: "toDetail", sender: indexPath)
+    }
+    
+    // ⭐️ 스토리보드를 통해서 데이터를 전달을 할 때는 항상 이 prepare 메서드를 사용
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toDetail" {
+            let detailVC = segue.destination as! DetailViewController
+            
+            let array = movieDataManager.getMovieData()
+            
+            let indexPath = sender as! IndexPath
+            
+            detailVC.movieData = array[indexPath.row]
+        }
     }
 }
