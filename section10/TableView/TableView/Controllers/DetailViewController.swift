@@ -15,13 +15,13 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var descriptionLabel: UILabel!
     
+    // 전 화면에서 Movie 데이터를 전달 받기 위한 변수
     var movieData: Movie?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupUI()
-        // Do any additional setup after loading the view.
     }
     
     func setupUI() {
